@@ -7,10 +7,17 @@ function activateGallery() {
 	let mainImage  = document.querySelector("#gallery-photo > img");
 
 	thumbnails.forEach(function(thumbnail) {
+
+		// Preload large images.
+		let newImageSrc = thumbnail.dataset.largeVersion;
+		let newImageAlt = thumbnail.dataset.title;
+		let newImageDes = thumbnail.dataset.description;
+
+		let largeVersion = new Image();
+		largeVersion.src = newImageSrc;
+
 		thumbnail.addEventListener("click", function() {
 			// Set clicked image as main image.
-			let newImageSrc = thumbnail.dataset.largeVersion;
-			let newImageAlt = thumbnail.dataset.title;
 			mainImage.setAttribute("src", newImageSrc);
 			mainImage.setAttribute("alt", newImageAlt);
 
@@ -24,8 +31,8 @@ function activateGallery() {
 			let title       = galleryInfo.querySelector(".title");
 			let description = galleryInfo.querySelector(".description");
 
-			title.innerHTML = thumbnail.dataset.title;
-			description.innerHTML = thumbnail.dataset.description;
+			title.innerHTML = newImageAlt;
+			description.innerHTML = newImageDes;
 		});
 	});
 }
